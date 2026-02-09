@@ -16,6 +16,21 @@ This project was architected and structured by me.
     - You can view the list of your favorite schools.
     - *Note*: Navigation from the Favorites list to the School Detail view is currently under development and may not be fully functional in this build.
 
+## Features
+
+- Search schools by name
+- View detailed school information
+- Discover nearby places (cafes, parks, libraries)
+- View weather data for a school’s location
+- Save favorite schools
+- Map-based visualization using OpenStreetMap
+
+### Services & API Integration
+- `lib/services/`
+  - Supabase: Database connections and custom SQL-based search queries
+  - Weather: Manually constructed API request URLs for full control
+  - OpenStreetMap / Overpass API: Manual parsing of node-based location data
+
 ## Installation & Setup
 
 ### Prerequisites
