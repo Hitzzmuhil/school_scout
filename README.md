@@ -2,6 +2,7 @@
 
 ## Overview
 School Scout is a mobile application developed in Flutter that allows users to search for, view details of, and save favorite schools. The app integrates with Supabase for data management and OpenWeatherMap for real-time weather information.
+> Note: This application requires valid Supabase and weather API credentials to enable full functionality. Without these, the app will run but core features will be limited.
 
 ### Development Credits
 This project was architected and structured by me. 
@@ -66,3 +67,10 @@ flutter run
 2.  **View Details**: Tap a school from the search results to see detailed information tabs (Info, Map, Weather).
 3.  **Add Favorite**: Tap the heart icon in the top right of the detail screen. A snackbar should confirm "Updated favorites!".
 4.  **View Favorites**: Go back to the search screen and tap the heart icon in the app bar. Verify your saved school appears in the list.
+
+## Troubleshooting
+
+- **No search results**: Ensure Supabase tables and RLS policies are correctly configured and populated.
+- **Weather not loading**: Verify the OpenWeather API key is active (keys may take time to activate).
+- **Favorites not saving**: Confirm authentication and Row Level Security policies are enabled in Supabase.
+

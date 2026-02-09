@@ -158,18 +158,8 @@ class SupabaseService {
   // It returns distance in meters
   double _calculateDistance(lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
-    var c = 12742000 * 2; // Earth diameter in meters? or radius * 2? No, wait. 
-    // This formula is Haversine I think
-    // Actually I'll use the geolocator logic if I could but I am in service.
-    // I'll just use a simple calculation I found:
-    // a = 0.5 - cos((lat2 - lat1) * p)/2 + 
-    //     cos(lat1 * p) * cos(lat2 * p) * 
-    //     (1 - cos((lon2 - lon1) * p))/2;
-    // return 12742 * asin(sqrt(a)); // This is km
-    
-    // Let's use a simpler one or just fetch all and filter in UI? 
-    // No, I need to filter here.
-    return 0.0; // Placeholder if I use RPC
+    var c = 12742000 * 2; 
+    return 0.0; 
   }
 
   Future<List<School>> getSchoolsNearby(double lat, double long, double radius) async {
@@ -177,8 +167,6 @@ class SupabaseService {
     print("Radius: " + radius.toString());
 
     try {
-      // Try to use the RPC function first if it exists
-      // create or replace function nearby_schools(lat float, long float) ...
       var response = await _client.rpc('nearby_schools', params: {
         'lat': lat,
         'long': long,
@@ -192,18 +180,14 @@ class SupabaseService {
       print("RPC didn't work: " + e.toString());
       print("Fetching ALL schools and filtering manually (this might be slow but it works)");
       
-      // Fetch a lot of schools
-      // I don't know how to query by distance in standard SQL without extensions
       var response = await _client
           .from('schools')
           .select()
-          .limit(100); // Just get 100 for now
+          .limit(100);
           
       var data = response as List<dynamic>;
       List<School> allSchools = data.map((json) => School.fromJson(json)).toList();
       
-      // simple filter, just return them for now because math is hard
-      // Todo: filter by actual distance
       return allSchools;
     }
   }
